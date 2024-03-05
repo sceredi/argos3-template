@@ -59,21 +59,21 @@
     </box>
 
     <!-- NOTE: This way you can add a light to the arena -->
-    <!-- <light id="light" -->
-    <!--   position="0.9,0.1,0.5" -->
-    <!--   orientation="0,0,0" -->
-    <!--   color="yellow" -->
-    <!--   intensity="1" -->
-    <!--   medium="leds" /> -->
+    <light id="light"
+      position="0.9,0.1,0.5"
+      orientation="0,0,0"
+      color="yellow"
+      intensity="1"
+      medium="leds" />
 
     <!-- NOTE: This way you can add a light to the arena -->
-    <!-- <distribute> -->
-    <!--   <position method="uniform" min="-2,-2,0" max="2,2,0" /> -->
-    <!--   <orientation method="uniform" min="0,0,0" max="360,0,0" /> -->
-    <!--   <entity quantity="25" max_trials="100"> -->
-    <!--     <box id="o" size="0.2, 0.2, 0.2" movable="false" /> -->
-    <!--   </entity> -->
-    <!-- </distribute> -->
+    <distribute>
+      <position method="uniform" min="-2,-2,0" max="2,2,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="25" max_trials="100">
+        <box id="o" size="0.2, 0.2, 0.2" movable="false" />
+      </entity>
+    </distribute>
 
 
     <!-- NOTE: Place the robot in a given precise position -->
@@ -120,8 +120,9 @@
     <!-- NOTE: setting the lua editor to true will open an editor window when launching the simulation, useful for debugging -->
     <qt-opengl lua_editor="false">
       <camera>
+        <!-- NOTE: top dow centered camera -->
         <placements>
-          <placement index="0" position="0,0,2.74921" look_at="0,0,1.87423" lens_focal_length="20" />
+          <placement index="0" position="0,0,4" look_at="0,0,0.5" lens_focal_length="20" />
         </placements>
         <!-- <placement idx="0" position="-2.0767,0.015,2.74921" look_at="-1.59254,0.015,1.87423" -->
         <!--   lens_focal_length="20" /> -->
