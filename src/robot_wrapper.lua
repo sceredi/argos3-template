@@ -20,7 +20,6 @@ local robot_wrapper = {}
 --- List of base ground sensor readings.
 ---@return BaseGroundReading[]
 function robot_wrapper.get_base_ground_readings()
-	-- Implementation should call the corresponding robot module function
 	return robot.base_ground
 end
 
@@ -105,13 +104,13 @@ robot_wrapper.leds = {}
 ---@param idx number The index of the LED to set (1-12 for the body LEDs, 13 for the beacon).
 ---@param color string|{number, number, number} The color to set. It can be expressed as a string ("red", "green", "blue", etc.) or as a triplet of numbers (r,g,b).
 function robot_wrapper.leds.set_single_color(idx, color)
-	-- Implementation should call the corresponding robot module function
+	robot.leds.set_single_color(idx, color)
 end
 
 --- Sets the color of all LEDs at once.
 ---@param color string|{number, number, number} The color to set for all LEDs. It can be expressed as a string ("red", "green", "blue", etc.) or as a triplet of numbers (r,g,b).
 function robot_wrapper.leds.set_all_colors(color)
-	-- Implementation should call the corresponding robot module function
+		robot.leds.set_all_colors(color)
 end
 
 --- Light sensor readings.
@@ -134,7 +133,6 @@ end
 --- List of light sensor readings.
 ---@return LightSensorReading[]
 function robot_wrapper.get_light_sensor_readings()
-	-- Implementation should call the corresponding robot module function
 	return robot.light
 end
 
@@ -154,7 +152,6 @@ end
 --- List of motor ground sensor readings.
 ---@return MotorGroundSensorReading[]
 function robot_wrapper.get_motor_ground()
-	-- Implementation should call the corresponding robot module function
 	return robot.motor_ground
 end
 
@@ -179,7 +176,6 @@ end
 --- List of proximity sensor readings.
 ---@return ProximitySensorReading[]
 function robot_wrapper.get_proximity_sensor_readings()
-	-- Implementation should call the corresponding robot module function
 	return robot.proximity
 end
 
@@ -273,7 +269,6 @@ end
 --- Get information about robot motion and wheels.
 ---@return WheelMotionControl
 function robot_wrapper.wheels.get_wheel_info()
-	-- Implementation should call the corresponding robot module function
 	return {
 		axis_length = robot.wheels.axis_length,
 		velocity_left = robot.wheels.velocity_left,
