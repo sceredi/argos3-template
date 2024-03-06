@@ -5,6 +5,7 @@ local logger = require("src.logger")
 local MOVE_STEPS = 15
 local MAX_VELOCITY = 10
 local LIGHT_THRESHOLD = 1.5
+local color = "yellow"
 
 local n_steps = 0
 local left_v = 0
@@ -15,22 +16,30 @@ local right_v = 0
 function init()
 	left_v = MAX_VELOCITY
 	right_v = 0
-	-- robot.wheels.set_velocity(left_v, right_v)
-	robot_wrapper.set_velocity(left_v, right_v)
+	robot_wrapper.wheels.set_velocity(left_v, right_v)
+	robot_wrapper.leds.set_all_colors(color)
 	n_steps = 0
-	robot.leds.set_all_colors("black")
 end
 
 --[[ This function is executed at each time step
      It must contain the logic of your controller ]]
 function step()
 	n_steps = n_steps + 1
+	if n_steps % MOVE_STEPS == 0 then
+		logger.Log("Changing color")
+		if color == "yellow" then
+			color = "black"
+		else
+			color = "yellow"
+		end
+		logger.Log("New color: " .. color)
+		robot_wrapper.leds.set_all_colors(color)
+	end
 	-- logger.Log("Gonna move by " .. left_v .. " " .. right_v)
 	light_controller()
 	collision_avoidance()
-	logger.Log("Moving by " .. left_v .. " " .. right_v)
-	-- robot.wheels.set_velocity(left_v, right_v)
-	robot_wrapper.set_velocity(left_v, right_v)
+	-- logger.Log("Moving by " .. left_v .. " " .. right_v)
+	robot_wrapper.wheels.set_velocity(left_v, right_v)
 end
 
 function collision_avoidance()
@@ -38,20 +47,18 @@ function collision_avoidance()
 	local closest = {
 		pos = 1,
 		value = robot_wrapper.get_proximity_sensor_readings()[1].value,
+		robot_wrapper.get_proximity_sensor_readings()[1].value,
 	}
 	for i = 1, #robot_wrapper.get_proximity_sensor_readings() do
 		-- logger.Log("proximity " .. i .. "->" .. robot.proximity[i].value)
-		if
-			robot_wrapper.get_proximity_sensor_readings()[i].value
-			> closest.value
-		then
+		if robot_wrapper.get_proximity_sensor_readings()[i].value > closest.value then
 			closest = {
 				pos = i,
 				value = robot_wrapper.get_proximity_sensor_readings()[i].value,
 			}
 		end
 	end
-	logger.Log("closest " .. closest.pos .. " " .. closest.value)
+	-- logger.Log("closest " .. closest.pos .. " " .. closest.value)
 	if closest.value >= 0.5 then
 		if closest.pos <= 7 then
 			left_v = 2
@@ -64,14 +71,10 @@ function collision_avoidance()
 end
 
 function light_controller()
-	local biggest_light =
-		{ pos = 1, value = robot_wrapper.get_light_sensor_readings()[1].value }
+	local biggest_light = { pos = 1, value = robot_wrapper.get_light_sensor_readings()[1].value }
 	-- Looking if the light is in front
 	for i = 2, #robot_wrapper.get_light_sensor_readings() do
-		if
-			robot_wrapper.get_light_sensor_readings()[i].value
-			> biggest_light.value
-		then
+		if robot_wrapper.get_light_sensor_readings()[i].value > biggest_light.value then
 			biggest_light = {
 				pos = i,
 				value = robot_wrapper.get_light_sensor_readings()[i].value,
@@ -98,9 +101,9 @@ function reset()
 	left_v = MAX_VELOCITY
 	right_v = 0
 	-- robot.wheels.set_velocity(left_v, right_v)
-	robot_wrapper.set_velocity(left_v, right_v)
+	robot_wrapper.wheels.set_velocity(left_v, right_v)
 	n_steps = 0
-	robot.leds.set_all_colors("black")
+	robot_wrapper.leds.set_all_colors(color)
 end
 
 --[[ This function is executed only once, when the robot is removed
