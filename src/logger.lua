@@ -1,7 +1,7 @@
 local logger = {}
 --- Log a message to the argos console.
 --- @param message string
-function logger.Log(message)
+function logger.log(message)
 	log(message)
 end
 
