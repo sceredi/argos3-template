@@ -35,11 +35,16 @@ end
 
 function collision_avoidance()
 	-- local closest = { pos = 1, value = robot.proximity[1].value }
-	local closest =
-		{ pos = 1, value = robot_wrapper.get_proximity_sensor_readings()[1].value }
+	local closest = {
+		pos = 1,
+		value = robot_wrapper.get_proximity_sensor_readings()[1].value,
+	}
 	for i = 1, #robot_wrapper.get_proximity_sensor_readings() do
 		-- logger.Log("proximity " .. i .. "->" .. robot.proximity[i].value)
-		if robot_wrapper.get_proximity_sensor_readings()[i].value > closest.value then
+		if
+			robot_wrapper.get_proximity_sensor_readings()[i].value
+			> closest.value
+		then
 			closest = {
 				pos = i,
 				value = robot_wrapper.get_proximity_sensor_readings()[i].value,
@@ -63,9 +68,14 @@ function light_controller()
 		{ pos = 1, value = robot_wrapper.get_light_sensor_readings()[1].value }
 	-- Looking if the light is in front
 	for i = 2, #robot_wrapper.get_light_sensor_readings() do
-		if robot_wrapper.get_light_sensor_readings()[i].value > biggest_light.value then
-			biggest_light =
-				{ pos = i, value = robot_wrapper.get_light_sensor_readings()[i].value }
+		if
+			robot_wrapper.get_light_sensor_readings()[i].value
+			> biggest_light.value
+		then
+			biggest_light = {
+				pos = i,
+				value = robot_wrapper.get_light_sensor_readings()[i].value,
+			}
 		end
 	end
 	if biggest_light.pos <= 12 then
