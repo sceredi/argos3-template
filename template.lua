@@ -1,6 +1,6 @@
 -- Put your global variables here
-local robot_wrapper = require("src.robot_wrapper")
-local logger = require("src.logger")
+local robot_wrapper = require("src.wrapper.robot_wrapper")
+local logger = require("src.wrapper.logger")
 
 local MOVE_STEPS = 15
 local MAX_VELOCITY = 10
