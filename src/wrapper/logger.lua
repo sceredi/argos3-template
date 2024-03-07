@@ -1,8 +1,8 @@
-local logger = {}
+local M = {}
 --- Log a message to the argos console.
 --- @param message string
-function logger.log(message)
+function M.log(message)
 	log(message)
 end
 
-return logger
+return M
