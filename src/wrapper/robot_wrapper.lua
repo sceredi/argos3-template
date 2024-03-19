@@ -110,7 +110,7 @@ end
 --- Sets the color of all LEDs at once.
 ---@param color string|{number, number, number} The color to set for all LEDs. It can be expressed as a string ("red", "green", "blue", etc.) or as a triplet of numbers (r,g,b).
 function M.leds.set_all_colors(color)
-		robot.leds.set_all_colors(color)
+	robot.leds.set_all_colors(color)
 end
 
 --- Light sensor readings.
@@ -209,6 +209,9 @@ end
 ---@param max number The maximum value of the range (default: 1).
 ---@return number The generated random number.
 function M.random.uniform(min, max)
+	if max < min then
+		min, max = max, min
+	end
 	return robot.random.uniform(min, max)
 end
 
@@ -217,6 +220,9 @@ end
 ---@param max integer The maximum value of the range.
 ---@return integer The generated random integer number.
 function M.random.uniform_int(min, max)
+	if max < min then
+		min, max = max, min
+	end
 	return robot.random.uniform_int(min, max)
 end
 
